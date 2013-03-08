@@ -150,6 +150,16 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("ETag", etag)
 	}
 
+	lastModified := res.Header.Get("Last-Modified")
+	if lastModified != "" {
+		w.Header().Set("Last-Modified", lastModified)
+	}
+
+	date := res.Header.Get("Date")
+	if date != "" {
+		w.Header().Set("Date", date)
+	}
+
 	contentEncoding := res.Header.Get("Content-Encoding")
 	if contentEncoding != "" {
 		w.Header().Set("Content-Encoding", contentEncoding)
@@ -172,7 +182,11 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", cacheControl)
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 
-	io.Copy(w, io.LimitReader(res.Body, maxSize))
+	if res.StatusCode == http.StatusNotModified {
+		w.WriteHeader(http.StatusNotModified)
+	} else {
+		io.Copy(w, io.LimitReader(res.Body, maxSize))
+	}
 }
 
 func main() {
