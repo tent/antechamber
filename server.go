@@ -179,7 +179,7 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 
 	cacheControl := res.Header.Get("Cache-Control")
 	if cacheControl == "" {
-		cacheControl = "public, max-age=3600"
+		cacheControl = "public, max-age=31536000"
 	}
 	w.Header().Set("Cache-Control", cacheControl)
 	w.Header().Set("X-Content-Type-Options", "nosniff")
