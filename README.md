@@ -13,6 +13,7 @@ The design is based on GitHub's [Camo](https://github.com/atmos/camo).
 - Doesn't have HMAC URL signing.
 - Doesn't have connection/status tracking.
 - Checks resolved IPs against a blacklist instead of just the hostname.
+- Correctly limits response bodies to 5MB when chunked.
 
 ## URL Formats
 
