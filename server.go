@@ -16,6 +16,8 @@ import (
 const maxSize = 5242880
 
 var blockNetworks = [][]byte{
+	// IPv4 Loopback
+	{127},
 	// IPv4 Link-local
 	{169, 254},
 	// IPv4 Private
