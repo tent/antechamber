@@ -137,7 +137,7 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	contentType := res.Header.Get("Content-Type")
-	if len(contentType) < 5 || contentType[:5] != "image" {
+	if res.StatusCode == http.StatusOK && (len(contentType) < 5 || contentType[:5] != "image") {
 		http.Error(w, "Received invalid Content-Type", http.StatusNotFound)
 		return
 	}
