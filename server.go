@@ -141,7 +141,9 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Received invalid Content-Type", http.StatusNotFound)
 		return
 	}
-	w.Header().Set("Content-Type", contentType)
+	if contentType != "" {
+		w.Header().Set("Content-Type", contentType)
+	}
 
 	etag := res.Header.Get("ETag")
 	if etag != "" {
