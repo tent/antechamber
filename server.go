@@ -193,6 +193,7 @@ func proxyRequest(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", proxyRequest)
+	http.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusNotFound) })
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8081"
